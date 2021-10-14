@@ -23,9 +23,9 @@ export class NavbarComponent implements OnInit {
         routerLink: ['/suppliers'],
       },
       {
-        label: 'Customer',
-        icon: 'pi pi-users',
-        routerLink: ['/customers'],
+        label: 'Category',
+        icon: 'pi pi-shopping-cart',
+        routerLink: ['/categories'],
       },
       {
         label: 'Item',
@@ -33,14 +33,9 @@ export class NavbarComponent implements OnInit {
         routerLink: ['/items'],
       },
       {
-        label: 'Category',
-        icon: 'pi pi-shopping-cart',
-        routerLink: ['/categories'],
-      },
-      {
-        label: 'Purchases',
+        label: 'Stocks',
         icon: 'pi pi-money-bill',
-        routerLink: ['/purchaseLists'],
+        routerLink: ['/stocks'],
       },
       {
         label: 'Planned Orders',
@@ -48,16 +43,21 @@ export class NavbarComponent implements OnInit {
         routerLink: ['/plannedOrders'],
       },
       {
+        label: 'Purchases',
+        icon: 'pi pi-money-bill',
+        routerLink: ['/purchaseLists'],
+      },
+      {
         label: 'Sales',
         icon: 'pi pi-money-bill',
         routerLink: ['/saleLists'],
       },
-
       {
-        label: 'Stocks',
-        icon: 'pi pi-money-bill',
-        routerLink: ['/stocks'],
+        label: 'Customer',
+        icon: 'pi pi-users',
+        routerLink: ['/customers'],
       },
+
       {
         label: 'Quit',
         icon: 'pi pi-fw pi-power-off',
