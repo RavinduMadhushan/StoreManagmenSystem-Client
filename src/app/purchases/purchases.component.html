@@ -1,0 +1,40 @@
+
+
+<form [formGroup]="purchaseItemForm" (ngSubmit)="onSubmit()">
+  <div class="card" style="padding: 20px">
+    <div class="p-grid p-fluid">
+      <div class="p-col-12 p-md-3">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+          <p-dropdown
+            style="width: 100%"
+            [options]="items"
+            placeholder="Select an Item"
+            optionLabel="productDescription"
+            [showClear]="true"
+            formControlName="itemId"
+            optionValue="id"
+          ></p-dropdown>
+        </div>
+      </div>
+    
+      <div class="p-col-12 p-md-3">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"
+            ><i class="pi pi-calendar-plus"></i
+          ></span>
+          <input
+            type="text"
+            pInputText
+            placeholder="Quantity"
+            formControlName="quantity"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-right" style="padding: 10px">
+    <p-button type="submit">Add New</p-button>
+  </div>
+</form>
+

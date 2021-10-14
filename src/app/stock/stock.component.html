@@ -1,0 +1,25 @@
+<div class="container" style="padding: 20px">
+  <p-table styleClass="p-datatable-striped" [value]="stocks"
+    >tocks
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Item Code</th>
+        <th>Category</th>
+        <th>Product</th>
+        <th>Available Stock</th>
+        <th>Predicted Stock</th>
+        <th>Diffrence</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-stocks>
+      <tr>
+        <td>{{ stocks.item.unitCode }}</td>
+        <td>{{ stocks.item.category.name }}</td>
+        <td>{{ stocks.item.productDescription }}</td>
+        <td>{{ stocks.quantity }}</td>
+        <td>{{ stocks.predictedQuantity }}</td>
+        <td>{{ stocks.predictedQuantity - stocks.quantity }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

@@ -1,0 +1,38 @@
+<p-panel header="Suppliers" style="padding: 5px; text-align: end">
+  <div style="padding: 10px">
+    <div class="text-left" style="padding: 10px">
+      <p-button (click)="addSupplierDetails()">Add Supplier</p-button>
+    </div>
+
+    <p-table
+      style="width: 5px"
+      styleClass="p-datatable-striped"
+      [value]="suppliers"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Suppiler Name</th>
+          <th>Code</th>
+          <th>Street Address</th>
+          <th>City</th>
+          <th>Post Code</th>
+          <th>Email</th>
+          <th>Contact Person</th>
+          <th>Contact Number</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-supplier>
+        <tr>
+          <td>{{ supplier.name }}</td>
+          <td>{{ supplier.code }}</td>
+          <td>{{ supplier.streetAddress }}</td>
+          <td>{{ supplier.city }}</td>
+          <td>{{ supplier.postCode }}</td>
+          <td>{{ supplier.email }}</td>
+          <td>{{ supplier.contactPerson }}</td>
+          <td>{{ supplier.contactNumber }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-panel>

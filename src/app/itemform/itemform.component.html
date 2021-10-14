@@ -1,0 +1,125 @@
+<form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+  <div class="card" style="height: 1000px; width: 1000px; padding: 20px">
+    <div class="p-fluid">
+      <h5>Item Details Form</h5>
+      <div class="p-grid p-flex-column">
+        <div class="p-col">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"
+              ><i class="pi pi-shopping-cart"></i
+            ></span>
+            <input
+              pInputText
+              placeholder="Unit Code"
+              type="text"
+              class="form-control"
+              formControlName="unitCode"
+            />
+          </div>
+        </div>
+        <div class="p-col">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <p-dropdown
+              style="width: 100%"
+              [options]="categories"
+              placeholder="Select a Category"
+              optionLabel="name"
+              [showClear]="true"
+              optionValue="id"
+              formControlName="category"
+            ></p-dropdown>
+          </div>
+        </div>
+        <div class="p-col">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"
+              ><i class="pi pi-shopping-cart"></i
+            ></span>
+            <input
+              pInputText
+              placeholder="Item Description"
+              type="text"
+              class="form-control"
+              formControlName="productDescription"
+            />
+          </div>
+        </div>
+        <div class="p-col">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <p-dropdown
+              style="width: 100%"
+              [options]="suppliers"
+              placeholder="Select a Supplier"
+              optionLabel="name"
+              [showClear]="true"
+              optionValue="id"
+              formControlName="supplier"
+            ></p-dropdown>
+          </div>
+        </div>
+        <div class="p-col">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"
+              ><i class="pi pi-shopping-cart"></i
+            ></span>
+            <input
+              pInputText
+              placeholder="Min Order"
+              type="text"
+              class="form-control"
+              formControlName="minOrder"
+            />
+          </div>
+        </div>
+        <div class="p-col">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"
+              ><i class="pi pi-shopping-cart"></i
+            ></span>
+            <input
+              pInputText
+              placeholder="Unit Cost"
+              type="text"
+              class="form-control"
+              formControlName="unitCost"
+            />
+          </div>
+        </div>
+        <div class="p-col">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"
+              ><i class="pi pi-shopping-cart"></i
+            ></span>
+            <input
+              pInputText
+              placeholder="Market Price"
+              type="text"
+              class="form-control"
+              formControlName="marketPrice"
+            />
+          </div>
+        </div>
+        <div class="p-col">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"
+              ><i class="pi pi-shopping-cart"></i
+            ></span>
+            <input
+              pInputText
+              placeholder="Predicted Price"
+              type="text"
+              class="form-control"
+              formControlName="predictedPrice"
+            />
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    <div style="text-align: justify">
+      <p-button label="Submit" type="Submit"></p-button>
+    </div>
+  </div>
+</form>

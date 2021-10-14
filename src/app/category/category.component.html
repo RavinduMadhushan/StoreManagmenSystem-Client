@@ -1,0 +1,27 @@
+<p-panel header="Categories" style="padding: 5px; text-align: end">
+    <div style="padding: 10px">
+      <div class="text-left" style="padding: 10px">
+        <p-button (click)="addCategoryDetails()">Add Category</p-button>
+      </div>
+  
+      <p-table
+        style="width: 5px"
+        styleClass="p-datatable-striped"
+        [value]="categories"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>name</th>
+      
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-category>
+          <tr>
+            <td>{{ category.name }}</td>
+  
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </p-panel>
+  

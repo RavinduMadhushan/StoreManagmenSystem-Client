@@ -1,0 +1,115 @@
+<form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+  <div class="card" style="padding: 20px">
+    <div class="p-fluid">
+      <h5>Sales Details Form</h5>
+      <div class="p-grid p-flex-column">
+        <div class="p-col">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <p-dropdown
+              style="width: 100%"
+              [options]="customers"
+              placeholder="Select a Customer"
+              optionLabel="firstName"
+              [showClear]="true"
+              optionValue="id"
+              formControlName="customerId"
+            ></p-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<form [formGroup]="saleItemForm" (ngSubmit)="onAdd()">
+  <div class="card" style="padding: 20px">
+    <div class="p-grid p-fluid">
+      <div class="p-col-12 p-md-3">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+          <p-dropdown
+            style="width: 100%"
+            [options]="items"
+            placeholder="Select an Item"
+            optionLabel="name"
+            [showClear]="true"
+            formControlName="itemId"
+            optionValue="id"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <div class="p-col-12 p-md-3">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-dollar"></i></span>
+          <p-dropdown
+            style="width: 100%"
+            [options]="weights"
+            placeholder="Select a weight"
+            optionLabel="name"
+            [showClear]="true"
+            formControlName="weight"
+            optionValue="value"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <div class="p-col-12 p-md-3">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">$</span>
+          <input
+            type="text"
+            pInputText
+            placeholder="Price"
+            formControlName="price"
+          />
+          <span class="p-inputgroup-addon">.00</span>
+        </div>
+      </div>
+
+      <div class="p-col-12 p-md-3">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon"
+            ><i class="pi pi-calendar-plus"></i
+          ></span>
+          <input
+            type="text"
+            pInputText
+            placeholder="Quantity"
+            formControlName="quantity"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-right" style="padding: 10px">
+    <p-button type="submit">Add New</p-button>
+  </div>
+</form>
+
+<form>
+  <div style="padding: 10px">
+    <p-table styleClass="p-datatable-striped" [value]="saleItems">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Item Name</th>
+          <th>Weight</th>
+          <th>Price</th>
+          <th>Quantity</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-i>
+        <tr>
+          <td>{{ i.itemName }}</td>
+          <td>{{ i.weight }} Kg</td>
+          <td>{{ i.price }}</td>
+          <td>{{ i.quantity }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <div style="padding: 10px">
+      <p-button (click)="onSubmit()" type="Submit">Submit</p-button>
+    </div>
+  </div>
+</form>
