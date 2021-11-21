@@ -4,13 +4,18 @@
     <p-button (click)="addItem()">Add Item</p-button>
   </div>
 
-
-
-  <p-table styleClass="p-datatable-striped" [value]="itemz" [(contextMenuSelection)]="selectedItem" [contextMenu]="cm" dataKey="code" responsiveLayout="scroll">
+  <p-table
+    styleClass="p-datatable-striped"
+    [value]="itemz"
+    [(contextMenuSelection)]="selectedItem"
+    [contextMenu]="cm"
+    dataKey="code"
+    responsiveLayout="scroll"
+  >
     <ng-template pTemplate="header">
       <tr>
         <th>Unit Code</th>
-        <th>Category</th>   
+        <th>Category</th>
         <th>Item Description</th>
         <th>Supplier</th>
         <th>Min Order</th>
@@ -20,7 +25,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item>
-      <tr>
+      <tr [pContextMenuRow]="item">
         <td>{{ item.unitCode }}</td>
         <td>{{ item.category.name }}</td>
         <td>{{ item.productDescription }}</td>

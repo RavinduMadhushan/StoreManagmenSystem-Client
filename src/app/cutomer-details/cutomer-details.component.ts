@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WebcamInitError, WebcamImage, WebcamUtil } from 'ngx-webcam';
 import { MessageService } from 'primeng/api';
 import { Subject, Observable } from 'rxjs';
@@ -21,13 +21,15 @@ export class CutomerDetailsComponent implements OnInit {
   customerForm!: FormGroup;
   feedBackForm!: FormGroup;
   customerform = false;
-  feedBack=false;
-  customerphoto=true;
-  happy='';
+  feedBack = false;
+  customerphoto = true;
+  happy = '';
+  person: any;
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private router: Router,
+    private route: ActivatedRoute,
     private messageService: MessageService
   ) {}
   // toggle webcam on/off
@@ -49,13 +51,16 @@ export class CutomerDetailsComponent implements OnInit {
   >();
 
   public ngOnInit(): void {
+    this.route.snapshot.paramMap.get('saleDto');
+    console.log(JSON.parse(this.route.snapshot.paramMap.get('saleDto')!));
+
     this.customerForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       contactNumber: ['', [Validators.required]],
       address: ['', [Validators.required]],
     });
- 
+
     WebcamUtil.getAvailableVideoInputs().then(
       (mediaDevices: MediaDeviceInfo[]) => {
         this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
@@ -91,20 +96,40 @@ export class CutomerDetailsComponent implements OnInit {
   public handleImage(webcamImage: WebcamImage): void {
     this.webcamImage = webcamImage;
     console.log(this.webcamImage.imageAsDataUrl);
+
+    this.http
+      .get(
+        'http://8e99-2402-4000-2280-97f7-fdf0-a2a8-eb68-12f0.ngrok.io/api/facial/recognition'
+      )
+      .subscribe((datas: any) => {
+        this.person = datas.prediction;
+        this.http
+          .get('http://localhost:3000/customer/' + this.person)
+          .subscribe((data: any) => {
+            this.customerForm.patchValue(data);
+          });
+      });
+
     let contact = {
       firstName: 'Rahul',
       lastName: 'Dravid',
       email: 'rahul@gmail.com',
-      contactNumber:'778101999'
+      contactNumber: '778101999',
     };
     this.customerform = true;
-    this.customerphoto=false;
-    this.customerForm.patchValue(contact)
+    this.customerphoto = false;
+    this.customerForm.patchValue(contact);
   }
-  cutomerFeedback(){
-    this.feedBack=true;
-    this.happy="Happy Mood"
-
+  cutomerFeedback() {
+    this.feedBack = true;
+    this.happy = 'Happy Mood';
+    this.http
+      .get(
+        'http://8e99-2402-4000-2280-97f7-fdf0-a2a8-eb68-12f0.ngrok.io/api/emotion/detection'
+      )
+      .subscribe((datas: any) => {
+        this.happy = datas.prediction;
+      });
   }
 
   public cameraWasSwitched(deviceId: string): void {

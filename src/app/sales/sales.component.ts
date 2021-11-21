@@ -35,18 +35,12 @@ export class SalesComponent implements OnInit {
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private router: Router
-  ) {
-    this.weights = [
-      { name: '5Kg', value: 5 },
-      { name: '10Kg', value: 10 },
-      { name: '20Kg', value: 20 },
-    ];
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.customerForm = this.formBuilder.group({
-      customerId: [''],
-    });
+    // this.customerForm = this.formBuilder.group({
+    //   customerId: [''],
+    // });
 
     this.saleItemForm = this.formBuilder.group({
       itemId: [''],
@@ -58,7 +52,6 @@ export class SalesComponent implements OnInit {
     this.http.get('http://localhost:3000/customer').subscribe((data: any) => {
       this.customers = data;
     });
-
     this.http.get('http://localhost:3000/item').subscribe((data: any) => {
       this.items = data;
     });
@@ -66,18 +59,21 @@ export class SalesComponent implements OnInit {
 
   onAdd(): void {
     let itemName = '';
+    let marketPrice = 0;
     for (let index = 0; index < this.items.length; index++) {
       const element = this.items[index];
 
       if (element.id === parseInt(this.saleItemForm.value.itemId)) {
-        // itemName = element.name;
+        itemName = element.productDescription;
+        marketPrice = element.marketPrice;
       }
     }
+
+    console.log(this.saleItemForm.value);
     let saleItemDto: SaleItemDto = new SaleItemDto();
     saleItemDto.itemId = this.saleItemForm.value.itemId;
+    saleItemDto.price = marketPrice * this.saleItemForm.value.quantity;
     saleItemDto.itemName = itemName;
-    saleItemDto.weight = this.saleItemForm.value.weight;
-    saleItemDto.price = this.saleItemForm.value.price;
     saleItemDto.quantity = this.saleItemForm.value.quantity;
 
     this.saleItems.push(saleItemDto);
@@ -85,7 +81,7 @@ export class SalesComponent implements OnInit {
 
   onSubmit(): void {
     let saleDto: CreateSaleDto = new CreateSaleDto();
-    saleDto.customerId = this.customerForm.value.customerId;
+    saleDto.customerId = 14;
     saleDto.saleItems = this.saleItems;
     console.log(saleDto);
 
@@ -99,7 +95,7 @@ export class SalesComponent implements OnInit {
           detail: 'Saved Successfully',
           key: 't1',
         });
-        this.router.navigate(['/saleLists']);
+        this.router.navigate(['/customerDetails', { saleDto: saleDto }]);
       });
   }
 }

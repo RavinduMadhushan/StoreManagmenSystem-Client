@@ -5,7 +5,7 @@ import { from } from 'rxjs';
 import { Category } from '../category';
 import { Item } from './../item';
 import { MenuItem } from 'primeng/api';
-import {MessageService} from 'primeng/api'
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-item',
@@ -16,22 +16,50 @@ export class ItemComponent implements OnInit {
   itemz: Item[] = [];
   items!: MenuItem[];
 
-  selectedItem:any;
+  selectedItem: Item | undefined;
+  price: any;
 
-
-  constructor(private router: Router, private http: HttpClient, private messageService: MessageService) {
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private messageService: MessageService
+  ) {
     this.items = [
-      {label: 'View', icon: 'pi pi-fw pi-search', command: () => this.viewProduct()},
-      {label: 'Delete', icon: 'pi pi-fw pi-times', command: () => this.deleteProduct()}
-  ];
+      {
+        label: 'View',
+        icon: 'pi pi-fw pi-search',
+        command: () => this.viewProduct(),
+      },
+      {
+        label: 'Edit',
+        icon: 'pi pi-fw pi-pencil',
+        command: () => this.editProduct(),
+      },
+      {
+        label: 'Delete',
+        icon: 'pi pi-fw pi-times',
+        command: () => this.deleteProduct(),
+      },
+    ];
   }
 
   ngOnInit(): void {
- 
     this.http.get('http://localhost:3000/item').subscribe((data: any) => {
-    this.itemz = data;
+      this.itemz = data;
+      if (data.length != 0) {
+        this.http
+          .get(
+            'http://2344-2402-4000-2280-97f7-1d26-d91a-7ab9-7e1e.ngrok.io/api/price/prediction'
+          )
+          .subscribe((datas: any) => {
+            this.price = datas;
+            for (let index = 0; index < this.itemz.length; index++) {
+              const element = this.price[index];
+              element.predictedPrice = this.price;
+            }
+          });
+      }
     });
-  
   }
 
   addItem(): void {
@@ -39,12 +67,14 @@ export class ItemComponent implements OnInit {
   }
 
   viewProduct() {
-    this.messageService.add({severity: 'info', summary: 'Product Selected' });
-}
+    this.messageService.add({ severity: 'info', summary: 'Product Selected' });
+  }
 
-deleteProduct() {
- 
-    this.messageService.add({severity: 'info', summary: 'Product Deleted'});
-   
-}
+  editProduct() {
+    this.router.navigate(['/new-item', { id: this.selectedItem?.id }]);
+  }
+
+  deleteProduct() {
+    this.messageService.add({ severity: 'info', summary: 'Product Deleted' });
+  }
 }

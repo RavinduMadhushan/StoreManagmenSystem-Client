@@ -1,4 +1,4 @@
-<form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+<!-- <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
   <div class="card" style="padding: 20px">
     <div class="p-fluid">
       <h5>Sales Details Form</h5>
@@ -20,7 +20,7 @@
       </div>
     </div>
   </div>
-</form>
+</form> -->
 
 <form [formGroup]="saleItemForm" (ngSubmit)="onAdd()">
   <div class="card" style="padding: 20px">
@@ -32,42 +32,13 @@
             style="width: 100%"
             [options]="items"
             placeholder="Select an Item"
-            optionLabel="name"
+            optionLabel="productDescription"
             [showClear]="true"
             formControlName="itemId"
             optionValue="id"
           ></p-dropdown>
         </div>
       </div>
-
-      <div class="p-col-12 p-md-3">
-        <div class="p-inputgroup">
-          <span class="p-inputgroup-addon"><i class="pi pi-dollar"></i></span>
-          <p-dropdown
-            style="width: 100%"
-            [options]="weights"
-            placeholder="Select a weight"
-            optionLabel="name"
-            [showClear]="true"
-            formControlName="weight"
-            optionValue="value"
-          ></p-dropdown>
-        </div>
-      </div>
-
-      <div class="p-col-12 p-md-3">
-        <div class="p-inputgroup">
-          <span class="p-inputgroup-addon">$</span>
-          <input
-            type="text"
-            pInputText
-            placeholder="Price"
-            formControlName="price"
-          />
-          <span class="p-inputgroup-addon">.00</span>
-        </div>
-      </div>
-
       <div class="p-col-12 p-md-3">
         <div class="p-inputgroup">
           <span class="p-inputgroup-addon"
@@ -94,17 +65,15 @@
       <ng-template pTemplate="header">
         <tr>
           <th>Item Name</th>
-          <th>Weight</th>
-          <th>Price</th>
           <th>Quantity</th>
+          <th>Price</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-i>
         <tr>
           <td>{{ i.itemName }}</td>
-          <td>{{ i.weight }} Kg</td>
-          <td>{{ i.price }}</td>
           <td>{{ i.quantity }}</td>
+          <td>{{ i.price }}</td>
         </tr>
       </ng-template>
     </p-table>
