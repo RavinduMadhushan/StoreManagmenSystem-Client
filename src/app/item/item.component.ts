@@ -15,6 +15,7 @@ import { MessageService } from 'primeng/api';
 export class ItemComponent implements OnInit {
   itemz: Item[] = [];
   items!: MenuItem[];
+  loading!: boolean;
 
   selectedItem: Item | undefined;
   price: any;
@@ -44,19 +45,22 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.http.get('http://localhost:3000/item').subscribe((data: any) => {
-      this.itemz = data;
-      if (data.length != 0) {
+      if (data.length > 0) {
         this.http
-          .get(
-            'http://2344-2402-4000-2280-97f7-1d26-d91a-7ab9-7e1e.ngrok.io/api/price/prediction'
-          )
+          .post('http://34.121.6.202:5000/api/price/prediction', {
+            item_id: 'aaa',
+          })
           .subscribe((datas: any) => {
-            this.price = datas;
-            for (let index = 0; index < this.itemz.length; index++) {
-              const element = this.price[index];
-              element.predictedPrice = this.price;
+            console.log(datas);
+            // this.price = datas;
+            for (let index = 0; index < data.length; index++) {
+              const element = data[index];
+              element.predictedPrice = datas.new_prediction;
             }
+            this.itemz = data;
+            this.loading = false;
           });
       }
     });
